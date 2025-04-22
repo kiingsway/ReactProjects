@@ -1,0 +1,14 @@
+.list_group {
+    max-height: 300px;
+    overflow: auto
+}
+
+.listGroupItem {
+    background-color: #333;
+    line-height: 1.1em;
+    border-color: #666;
+}
+
+.listGroupItem:hover {
+    background-color: #444;
+}

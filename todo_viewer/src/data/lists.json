@@ -1,0 +1,172 @@
+{
+    "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#users('knucles0906%40live.com')/todo/lists",
+    "value": [{
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigACc6FXaQ==\"",
+            "displayName": "Flagged Emails",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "flaggedEmails",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigACc4FKbgAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSgw==\"",
+            "displayName": "Tarefas",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "defaultList",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigAAAgESAAAA"
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncShQ==\"",
+            "displayName": "✈ Documentos Visto",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigAFa6aYGQAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncShw==\"",
+            "displayName": "✈ Toronto Project",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigAEfpR6pAAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSiQ==\"",
+            "displayName": "✅ The Next Level Season",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigACzyMZTgAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSiw==\"",
+            "displayName": "All In",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigAE5Z1EggAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSjQ==\"",
+            "displayName": "Work",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigAFQHx8AKEAAAA="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSjw==\"",
+            "displayName": "🎓To-Do Faculdade",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigABBJ0o-QAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSkQ==\"",
+            "displayName": "🎞 Livros & Filmes & Séries",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigACW-eTbgAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSkw==\"",
+            "displayName": "🎵 Songs Season",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigACzyMZTAAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSlw==\"",
+            "displayName": "🏕️ House Clean Season",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigACzyMZSgAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSmQ==\"",
+            "displayName": "🏗 3D Seasons",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigAEcBwByAAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSmw==\"",
+            "displayName": "🏗 Class Solutions",
+            "isOwner": true,
+            "isShared": true,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigACEyFRlAAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSnQ==\"",
+            "displayName": "🏢 Mind Clean Season",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigACzyMZTwAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSnw==\"",
+            "displayName": "💪 Routine Season",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigACzyMZTQAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSoQ==\"",
+            "displayName": "💵 PC & Crypto things",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigAE_C4IugAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSow==\"",
+            "displayName": "📕 Aprender sobre",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigABO3AtJQAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSpQ==\"",
+            "displayName": "🔥 SwayLED Season",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigACzyMZUAAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSpw==\"",
+            "displayName": "🖥 App Ideas Season",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigACzyMZSwAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSqQ==\"",
+            "displayName": "🖥 DEV Seasons",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigADvAx2GAAAAA=="
+        },
+        {
+            "@odata.etag": "W/\"LywD7Xeo2kCZBYKDfnFnigAFkncSqw==\"",
+            "displayName": "🙋 Body Clean Season",
+            "isOwner": true,
+            "isShared": false,
+            "wellknownListName": "none",
+            "id": "AQMkADAwATM0MDAAMS1iZjhjLTZlMGItMDACLTAwCgAuAAAD57ftdzPxv0GAOl4oCWFYWgEALywD7Xeo2kCZBYKDfnFnigACzyMZSQAAAA=="
+        }
+    ]
+}

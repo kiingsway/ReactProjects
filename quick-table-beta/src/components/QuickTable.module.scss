@@ -1,0 +1,41 @@
+.Table {
+    &_Container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 10px;
+        overflow: auto;
+    }
+    &_GlobalFilter::placeholder {
+        color: inherit;
+        opacity: .7;
+    }
+    &_Column {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: nowrap;
+        &_Text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        &_SortIcon {
+            margin: 1px 4px 0 6px;
+        }
+        &_MenuIcon {
+            opacity: 0;
+            transition: visibility 0s 200ms, opacity 200ms linear;
+            margin: 2px 0 0 6px;
+        }
+        &:hover &_MenuIcon {
+            visibility: visible !important;
+            opacity: 1;
+            transition: opacity 200ms linear;
+        }
+        &_FilterSelect {
+            width: 100%;
+            text-overflow: ellipsis;
+        }
+    }
+}
