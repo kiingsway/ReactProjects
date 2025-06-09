@@ -1,0 +1,116 @@
+import useBoolean from "@/hooks/useBoolean";
+import { AddctFormItem, DateProperties, NumberProperties, Page, RelationProperties } from "@/interfaces";
+import { addctDatabaseId } from "@/pages/apps/addct";
+import { Button, DatePicker, Form, FormProps, InputNumber, Modal, Select } from "antd";
+import { DefaultOptionType } from "antd/es/select";
+import axios from "axios";
+import React from "react";
+
+interface Props {
+  open: boolean;
+  addctItem?: Page;
+  addctTypes: DefaultOptionType[];
+  onClose: () => void;
+  updateData: () => void;
+}
+
+export default function AddctModalEditForm({ open, addctItem, addctTypes, onClose, updateData }: Props): React.JSX.Element {
+
+  const [form] = Form.useForm<AddctFormItem>();
+  const [loading, { setTrue: startSave, setFalse: stopSave }] = useBoolean();
+
+  if (!addctItem) return <></>;
+
+  const onFinish: FormProps<AddctFormItem>["onFinish"] = formItem => {
+    try {
+      const item = getDBPageProps(formItem);
+      startSave();
+      axios.post("/api/page", item)
+        .then(() => {
+          updateData();
+          onClose();
+        })
+        .catch(e => {
+          const msg = e?.response?.data?.message || e?.response?.data || e?.message || e || "Unknown error";
+          alert(msg);
+          console.error(msg);
+        })
+        .finally(stopSave);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : e;
+      alert(msg);
+      console.error(msg);
+    }
+  };
+
+  const onCancel = (): void => loading ? undefined : onClose();
+
+  return (
+    <Modal
+      open={open}
+      onCancel={onCancel}
+      title="Add item"
+      destroyOnHidden
+      closable={!loading}
+      maskClosable={!loading}
+      footer={[
+        <Button key="cancel" onClick={onClose} disabled={loading}>Cancel</Button>,
+        <Button
+          key="submit"
+          type="primary"
+          htmlType="submit"
+          onClick={form.submit}
+          loading={loading}
+          disabled={loading}>{loading ? "Saving..." : "Create"}</Button>,
+      ]}
+    >
+      <Form<AddctFormItem>
+        form={form}
+        name="basic"
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        style={{ maxWidth: 600 }}
+        onFinish={onFinish}
+        autoComplete="off"
+      >
+        <Form.Item<AddctFormItem>
+          label="Addct"
+          name="addct"
+          rules={[{ required: true }]}
+        >
+          <Select placeholder="Select type" options={addctTypes} />
+        </Form.Item>
+
+        <Form.Item<AddctFormItem>
+          label="Date"
+          name="date"
+          rules={[{ required: true }]}
+        >
+          <DatePicker format="DD/MM/YYYY HH:mm" showTime />
+        </Form.Item>
+
+        <Form.Item<AddctFormItem>
+          label="Quantity"
+          name="quantity"
+          rules={[{ required: true }]}
+        >
+          <InputNumber min={1} />
+        </Form.Item>
+
+      </Form>
+    </Modal>
+  );
+}
+
+function getDBPageProps(formItem: AddctFormItem): Partial<Page> {
+  const { addct, date, quantity } = formItem;
+  if (!addct || addct.length < 8) throw new Error(`Invalid Page ID: "${addct}"`);
+  return {
+    parent: { database_id: addctDatabaseId },
+    properties: {
+      Quantity: ({ number: quantity } as NumberProperties),
+      Data: ({ date: { start: date.toISOString() } } as DateProperties),
+      Type: ({ relation: [{ id: addct }] } as RelationProperties)
+    }
+  };
+}

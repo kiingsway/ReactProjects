@@ -1,0 +1,13 @@
+npx create-next-app@14
+npm i axios luxon antd swr react-icons next-transpile-modules
+npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
+
+// .eslintrc.json
+{"rules":{"@typescript-eslint/explicit-function-return-type":["warn",{}],"no-unused-vars":"warn","consistent-return":"warn","semi":["error","always"],"quotes":["warn","double"]}}
+
+// next.config.mjs
+import transpileModules from 'next-transpile-modules';
+/** @type {import('next').NextConfig} */
+const withTM = transpileModules(['antd','@ant-design/icons','rc-util','rc-pagination','rc-picker','rc-input','rc-table','rc-tree']);
+const nextConfig = withTM({});
+export default nextConfig;
