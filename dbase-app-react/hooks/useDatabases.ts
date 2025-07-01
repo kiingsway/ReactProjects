@@ -17,7 +17,7 @@ export function useDatabases(): IUseDB {
 
   const options: SWRConfig<DatabaseItem[]> = { ...swrNoRefresh, refreshInterval: 5 * 60 * 1000 };
 
-  const { data, error, isValidating, mutate } = useSWR<DatabaseItem[]>("/api/get_databases", fetcher, options);
+  const { data, error, isValidating, mutate } = useSWR<DatabaseItem[]>("/api/databases", fetcher, options);
 
   const updateData = (): Promise<DatabaseItem[] | undefined> => mutate(data);
 

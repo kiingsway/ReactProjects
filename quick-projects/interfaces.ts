@@ -36,7 +36,10 @@ export interface IMessage {
   sender: GraphEmailAddress;
   from: GraphEmailAddress;
   "@odata.etag": string;
-  body: { contentType: string; content: string }
+  body: { contentType: string; content: string };
+  hasAttachments?: boolean;
+  importance?: string;
+  ccRecipients: unknown[];
+  bccRecipients: unknown[];
+  flag?: { flagStatus: string };
 }
-
-

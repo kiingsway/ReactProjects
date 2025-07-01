@@ -1,8 +1,9 @@
 import useSWR from "swr";
 import axios from "axios";
 import { Page, TitleProperties } from "@/interfaces";
-import { getDbPagesUrl, getRelationArrayFromProperties, removeDuplicates } from "@/app/services/helpers";
+import { getDBUrl, getPageUrl, getRelationArrayFromProperties, removeDuplicates } from "@/app/services/helpers";
 import { useEffect, useState } from "react";
+import { SuccessResponse } from "@/app/services/requests";
 
 interface IUseDBPages {
   data: Page[] | undefined;
@@ -12,14 +13,20 @@ interface IUseDBPages {
 }
 
 export function useDatabasePages(databaseId?: string): IUseDBPages {
-  const fetcher = (url: string): Promise<Page[]> => axios.get<Page[]>(url).then(res => res.data);
-  const url = getDbPagesUrl(databaseId);
+  const fetcher = (url: string): Promise<Page[]> => axios.get<SuccessResponse<Page[]>>(url).then(res => {
+    console.log("response", res.data);
+    return res.data.data as Page[];
+  });
+  // const url = databaseId ? getDBUrl(databaseId) : null;
+  const url = "/api/databases";
 
   const { data: dataSWR, error, isValidating, mutate } = useSWR<Page[]>(url, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     refreshInterval: 0,
   });
+
+  console.log("dataSWR", dataSWR);
 
   const [data, setData] = useState<Page[] | undefined>();
 
@@ -44,7 +51,7 @@ async function getRelationValues(data?: Page[]): Promise<Page[]> {
 
   // 2. Obter os dados das páginas relacionadas
   const relationPages = (await Promise.all(
-    relationIds.map(id => axios.get<Page>(`/api/get_page/${id}`)
+    relationIds.map(id => axios.get<Page>(getPageUrl(id))
       .then(res => res.data)
       .catch(() => null) // ou qualquer valor default para erro
     )

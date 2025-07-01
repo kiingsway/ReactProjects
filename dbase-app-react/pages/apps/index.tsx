@@ -11,7 +11,7 @@ export default function Apps({ asComponent = false }: AppsProps): React.JSX.Elem
 
   const router = useRouter();
 
-  const appsList: string[] = ["addct"];
+  const appsList: string[] = ["addct", "expenses", "expensesRbcData"];
   const apps = appsList.map(key => ({ key, onClick: (): Promise<boolean> => router.push(`/apps/${key}`) }));
 
   const content = (

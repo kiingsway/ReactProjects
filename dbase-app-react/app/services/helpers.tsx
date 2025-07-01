@@ -1,6 +1,21 @@
+import { TypeCSV } from "@/components/Expenses/interfaces";
 import { Page } from "@/interfaces";
 import dayjs from "dayjs";
 import { DateTime } from "luxon";
+import Papa from "papaparse";
+import hash from "object-hash";
+
+const dateRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
+const numberRegex = /^-?\d+(\.\d+)?$/;
+
+export const swrNoRefresh = { refreshInterval: 0, revalidateOnFocus: false, revalidateOnReconnect: false, refreshWhenHidden: false, };
+
+export const getPageUrl = (pageId: string): string => `/api/page/${pageId}`;
+export const getDBUrl = (dbID: string): string => `/api/database/${dbID}`;
+
+export const removeDuplicates = (arr: string[]): string[] => Array.from(new Set(arr));
+
+const generateObjectKey = (obj: Record<string, string | number>): string => hash(obj);
 
 export function friendlyDate(stringDate: string): string {
   try {
@@ -70,16 +85,6 @@ export function getRelationArrayFromProperties(pages: Page[]): string[] {
   return arr;
 }
 
-
-export const removeDuplicates = (arr: string[]): string[] => Array.from(new Set(arr));
-
-export const IconText = ({ icon, text }: { icon: React.JSX.Element; text: string }): React.JSX.Element => (
-  <div className="flex flex-row gap-2 items-center">
-    {icon}
-    {text}
-  </div>
-);
-
 export function getErrorMessage(error: unknown): string {
   if (!error) return "Unknown error";
 
@@ -106,16 +111,85 @@ export function getErrorMessage(error: unknown): string {
   return String(error);
 }
 
+/**
+ * Converte um CSV string para JSON e formata datas no formato M/D/YYYY para DD/MM/YYYY.
+ */
+export function parseCsvWithTypes(csvText: string): TypeCSV[] {
+  const { data, errors } = Papa.parse<Record<string, string>>(csvText, {
+    header: true,
+    skipEmptyLines: true,
+    transformHeader: h => h.trim(),
+  });
 
-export const swrNoRefresh = {
-  refreshInterval: 0,
-  revalidateOnFocus: false,
-  revalidateOnReconnect: false,
-  refreshWhenHidden: false,
-};
+  if (errors.length) throw new Error(`Erro ao processar o CSV: ${errors[0].message}`);
 
-export const getDbPagesUrl = (databaseId?: string): string | null => {
-  if (!databaseId) return null;
-  return `/api/page/${databaseId}`;
-  // return `/api/get_database_pages?databaseId=${databaseId}`;
-};
+  return data.map((row) => {
+    const parsed: Record<string, string | number> = {};
+
+    for (const [key, raw] of Object.entries(row)) {
+      const val = raw?.trim();
+      if (dateRegex.test(val)) {
+        const [, m, d, y] = val.match(dateRegex)!;
+        parsed[key] = `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+      } else if (numberRegex.test(val)) {
+        parsed[key] = parseFloat(val);
+      } else {
+        parsed[key] = val;
+      }
+    }
+
+    return { key: generateObjectKey(parsed), ...parsed } as TypeCSV;
+  });
+}
+
+/**
+ * Sorter padrão: ordena strings e números corretamente (A–Z, 0–9).
+ */
+export function defaultSorter(a: TypeCSV, b: TypeCSV, key: string): number {
+  const [aVal, bVal] = [a[key], b[key]];
+
+  const isoDateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  const aStr = String(aVal).trim();
+  const bStr = String(bVal).trim();
+
+  // Se ambos forem datas ISO válidas, comparar como data
+  if (isoDateRegex.test(aStr) && isoDateRegex.test(bStr)) {
+    const aDate = new Date(aStr).getTime();
+    const bDate = new Date(bStr).getTime();
+    return aDate - bDate;
+  }
+
+  // Comparação numérica se ambos forem números válidos
+  const aNum = typeof aVal === "number" ? aVal : parseFloat(aStr);
+  const bNum = typeof bVal === "number" ? bVal : parseFloat(bStr);
+  const [aIsNumber, bIsNumber] = [!isNaN(aNum), !isNaN(bNum)];
+
+  if (aIsNumber && bIsNumber) return aNum - bNum;
+
+  // Fallback para string com ordenação alfanumérica
+  return aStr.localeCompare(bStr, undefined, { numeric: true, sensitivity: "base" });
+}
+
+/**
+ * Normalizes a text string to simplify searching and comparison.
+ * - Converts numbers to strings;
+ * - Removes accents (diacritics);
+ * - Converts all characters to lowercase;
+ * - Returns an empty string if the input is undefined, null, or empty.
+ *
+ * @param text The text or number to normalize.
+ * @returns The normalized lowercase string without accents.
+ */
+export function rawText(text?: string | number): string {
+  // Return empty string if falsy (undefined, null, 0, '')
+  if (!text) return "";
+
+  // Convert to string if the input is a number
+  const str = typeof text === "number" ? String(text) : text.trim();
+
+  // Normalize accents and convert to lowercase
+  return str
+    .normalize("NFKD")                   // Decompose accented characters
+    .replace(/[\u0300-\u036f]/g, "")    // Remove diacritical marks (accents)
+    .toLowerCase();                     // Convert to lowercase
+}

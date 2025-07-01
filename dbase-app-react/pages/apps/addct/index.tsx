@@ -9,7 +9,7 @@ import { Button, Tooltip, Dropdown, Tabs, notification } from "antd";
 import { IoMdRefresh } from "react-icons/io";
 import { IoAddOutline } from "react-icons/io5";
 import { BiBarChartAlt2, BiTable } from "react-icons/bi";
-import { getDbPagesUrl, getErrorMessage, IconText, swrNoRefresh } from "@/app/services/helpers";
+import { getDBUrl, getErrorMessage, swrNoRefresh } from "@/app/services/helpers";
 import { TiHome } from "react-icons/ti";
 import { useRouter } from "next/router";
 import useBoolean from "@/hooks/useBoolean";
@@ -17,12 +17,13 @@ import AddctModalForm from "@/components/Addct/AddctModalForm";
 import AddctTable from "@/components/Addct/AddctTable";
 import { SuccessResponse } from "@/app/services/requests";
 import { DefaultOptionType } from "antd/es/select";
+import IconText from "@/components/IconText";
 
 export const addctDatabaseId = "1fe52d77-45e1-8025-8aa2-c545ef1af6f1";
 export const addctTypesDatabaseId = "1fe52d77-45e1-8088-b672-d744ef011401";
 
-const addctDatabaseUrl = getDbPagesUrl(addctDatabaseId);
-const addctTypesDatabseUrl = getDbPagesUrl(addctTypesDatabaseId);
+const addctDatabaseUrl = getDBUrl(addctDatabaseId);
+const addctTypesDatabseUrl = getDBUrl(addctTypesDatabaseId);
 
 const fetcher = async (url: string): Promise<Page[]> => (await axios.get<SuccessResponse<Page[]>>(url)).data.data || [];
 
