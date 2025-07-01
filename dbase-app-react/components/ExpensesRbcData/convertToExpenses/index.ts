@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 import { IRbcItem, IExpenseItem, IConvertExpenseRule } from "../interfaces";
 import conversionRules from "./conversionRules";
+import { hashIRItem } from "./hashIRItem";
 
 export default function convertToExpenses(data: IRbcItem[]): IExpenseItem[] {
   if (!data.length) return [];
@@ -8,8 +9,10 @@ export default function convertToExpenses(data: IRbcItem[]): IExpenseItem[] {
     const { AccountType, TransactionDate, Description1, Description2, Balance, Total } = item;
     const BankDescription = Description1 + " " + Description2;
     const TransactionMonth = DateTime.fromISO(TransactionDate).toFormat("(yy-MM) LLLL yy");
+    const key = hashIRItem(item);
 
     return {
+      key,
       AccountType, TransactionDate, BankDescription, Balance, Total, TransactionMonth,
       Account: "RBC",
       Title: "",

@@ -8,6 +8,7 @@ export interface IRbcItem {
 }
 
 export interface IExpenseItem {
+  key: string;
   Account: string;
   AccountType: string;
   TransactionDate: string;

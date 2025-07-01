@@ -6,6 +6,7 @@ import useBoolean from "@/hooks/useBoolean";
 import { ColumnsType } from "antd/es/table";
 import ClickableSwitch from "../ClickableSwitch";
 import DownloadCSVBtn from "./components/DownloadCSVBtn";
+import { RenderKey } from "./convertToExpenses/hashIRItem";
 
 interface Props {
   expenses: IExpenseItem[]
@@ -19,9 +20,10 @@ export default function ExpensesTable({ expenses }: Props): React.JSX.Element {
 
   const columns = React.useMemo(() => {
 
-    const colsToHide: (keyof IExpenseItem)[] = ["Account", "AccountType", "TransactionMonth", "Balance"];
+    const colsToHide: (keyof IExpenseItem)[] = ["key", "Account", "AccountType", "TransactionMonth", "Balance"];
 
     const cols: ColumnsType<IExpenseItem> = [
+      { dataIndex: "key", key: "key", title: "Key", render: (key: string) => <RenderKey hashKey={key} /> },
       { dataIndex: "Account", title: "Account" },
       { dataIndex: "AccountType", title: "Account Type" },
       {
