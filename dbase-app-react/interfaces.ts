@@ -73,26 +73,37 @@ export interface RollupPropertiesRollupArray {
 }
 
 interface RollupPropertiesRollupArrayTitle {
-  type: string
+  type: string;
   text: {
-    content: string
-    link: string | null
+    content: string;
+    link: string | null;
   }
   annotations: {
-    bold: boolean
-    italic: boolean
-    strikethrough: boolean
-    underline: boolean
-    code: boolean
-    color: string
+    bold: boolean;
+    italic: boolean;
+    strikethrough: boolean;
+    underline: boolean;
+    code: boolean;
+    color: string;
   }
-  plain_text: string
-  href: string | null
+  plain_text: string;
+  href: string | null;
 }
 
-export type NotionDatabasePageProperties = TitleProperties | TextProperties | NumberProperties | SelectProperties | StatusProperties | DateProperties | RelationProperties | RollupProperties;
+export type NotionDatabasePageProperties =
+  TitleProperties |
+  TextProperties |
+  NumberProperties |
+  SelectProperties |
+  StatusProperties |
+  DateProperties |
+  RelationProperties |
+  RollupProperties;
+
+export type PageProperties = Record<string, NotionDatabasePageProperties>;
 
 export interface Page {
+  object: 'page'
   id: string
   created_time: string
   last_edited_time: string
@@ -103,18 +114,20 @@ export interface Page {
   parent: { database_id: string };
 }
 
-export type PageProperties = Record<string, NotionDatabasePageProperties>;
+export type PageWithProperties<T extends NotionDatabasePageProperties> = Omit<Page, "properties"> & {
+  properties: Record<string, T>;
+};
 
 export type NotionDatabasePagePropertiesName = NotionDatabasePageProperties & { prop_name: string };
 
 export interface SimplifiedPage {
-  id: string
-  created_time: string
-  last_edited_time: string
-  archived: boolean
-  in_trash: boolean
-  properties: NotionDatabasePagePropertiesName[]
-  url: string
+  id: string;
+  created_time: string;
+  last_edited_time: string;
+  archived: boolean;
+  in_trash: boolean;
+  url: string;
+  properties: NotionDatabasePagePropertiesName[];
 }
 
 export type SWRConfig<T> = SWRConfiguration<T, unknown, BareFetcher<T>>;

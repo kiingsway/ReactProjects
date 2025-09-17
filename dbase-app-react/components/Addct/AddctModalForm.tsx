@@ -1,4 +1,3 @@
-import { addctDatabaseId } from "@/pages/apps/addct";
 import React, { useEffect } from "react";
 import type { FormProps } from "antd";
 import { Button, DatePicker, Form, InputNumber, Modal, Select } from "antd";
@@ -115,8 +114,10 @@ export default function AddctModalForm({ open, formType, addctTypes, onClose, up
 export function getDBPageProps(formItem: AddctFormItem): Partial<Page> {
   const { addct, date, quantity } = formItem;
   if (!addct || addct.length < 8) throw new Error(`Invalid Page ID: "${addct}"`);
+  const database_id = process.env.ADDCT_DB_ID;
+  if (!database_id) throw new Error("CRITIAL ERROR: NO ENV: 'ADDCT_DB_ID'");
   return {
-    parent: { database_id: addctDatabaseId },
+    parent: { database_id },
     properties: {
       Quantity: ({ number: quantity } as NumberProperties),
       Data: ({ date: { start: date.toISOString() } } as DateProperties),

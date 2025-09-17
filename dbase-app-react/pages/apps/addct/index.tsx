@@ -19,11 +19,8 @@ import { SuccessResponse } from "@/app/services/requests";
 import { DefaultOptionType } from "antd/es/select";
 import IconText from "@/components/IconText";
 
-export const addctDatabaseId = "1fe52d77-45e1-8025-8aa2-c545ef1af6f1";
-export const addctTypesDatabaseId = "1fe52d77-45e1-8088-b672-d744ef011401";
-
-const addctDatabaseUrl = getDBUrl(addctDatabaseId);
-const addctTypesDatabseUrl = getDBUrl(addctTypesDatabaseId);
+const addctDatabaseUrl = getDBUrl(process.env.ADDCT_DB_ID || "");
+const addctTypesDatabseUrl = getDBUrl(process.env.ADDCTTYPES_DB_ID || "");
 
 const fetcher = async (url: string): Promise<Page[]> => (await axios.get<SuccessResponse<Page[]>>(url)).data.data || [];
 

@@ -15,7 +15,7 @@ export default function UnhandledColumnRenderer({ column }: { column: NotionData
       <Button size="small" onClick={openModal} icon={<VscJson />} />
       <Modal
         open={open}
-        title={`Conteúdo de "${column.prop_name}"`}
+        title={`Conteúdo de "${column.prop_name}" (${column.type})`}
         onCancel={closeModal}
         footer={null}
         width={600}

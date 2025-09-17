@@ -1,6 +1,5 @@
 import useBoolean from "@/hooks/useBoolean";
 import { AddctFormItem, DateProperties, NumberProperties, Page, RelationProperties } from "@/interfaces";
-import { addctDatabaseId } from "@/pages/apps/addct";
 import { Button, DatePicker, Form, FormProps, InputNumber, Modal, Select } from "antd";
 import { DefaultOptionType } from "antd/es/select";
 import axios from "axios";
@@ -105,8 +104,10 @@ export default function AddctModalEditForm({ open, addctItem, addctTypes, onClos
 function getDBPageProps(formItem: AddctFormItem): Partial<Page> {
   const { addct, date, quantity } = formItem;
   if (!addct || addct.length < 8) throw new Error(`Invalid Page ID: "${addct}"`);
+  const database_id = process.env.ADDCT_DB_ID;
+  if (!database_id) throw new Error("CRITIAL ERROR: NO ENV: 'ADDCT_DB_ID'");
   return {
-    parent: { database_id: addctDatabaseId },
+    parent: { database_id },
     properties: {
       Quantity: ({ number: quantity } as NumberProperties),
       Data: ({ date: { start: date.toISOString() } } as DateProperties),

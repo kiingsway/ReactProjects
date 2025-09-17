@@ -2,6 +2,7 @@
 import { getErrorMessage } from "@/app/services/helpers";
 import DatabasePagesTable from "@/components/DatabasePagesTable";
 import { useDatabasePages } from "@/hooks/useDatabasePages";
+import { Page } from "@/interfaces";
 import { notification, Button } from "antd";
 import { useRouter } from "next/router";
 import React from "react";
@@ -16,7 +17,7 @@ export default function DatabasePage(): React.JSX.Element {
 
   const [api, contextHolder] = notification.useNotification();
 
-  const { data, error } = useDatabasePages(databaseId);
+  const { items: data, error } = useDatabasePages(databaseId);
 
   React.useEffect(() => {
     if (error) {
@@ -36,7 +37,7 @@ export default function DatabasePage(): React.JSX.Element {
         <h1 className="font-semibold text-xl">ID: {databaseId}</h1>
       </div>
       {contextHolder}
-      {!data ? <></> : <DatabasePagesTable databasePages={data} />}
+      {!data ? <></> : <DatabasePagesTable databasePages={data as Page[]} />}
     </div>
   );
 }

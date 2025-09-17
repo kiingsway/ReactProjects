@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import type { TableProps } from "antd";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography } from "antd";
 
-interface DataType {
+interface IExpenseItem {
   key: string;
   name: string;
   age: number;
   address: string;
 }
 
-const originData = Array.from({ length: 100 }).map<DataType>((_, i) => ({
+const originData = Array.from({ length: 100 }).map<IExpenseItem>((_, i) => ({
   key: i.toString(),
   name: `Edward ${i}`,
   age: 32,
@@ -21,37 +21,23 @@ interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
   dataIndex: string;
   title: never;
   inputType: "number" | "text";
-  record: DataType;
+  record: IExpenseItem;
   index: number;
 }
 
-const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
-  editing,
-  dataIndex,
-  title,
-  inputType,
-  children,
-  ...restProps
-}) => {
+const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = props => {
+  const { editing, dataIndex, title, inputType, children, ...restProps } = props;
   const inputNode = inputType === "number" ? <InputNumber /> : <Input />;
 
   return (
     <td {...restProps}>
-      {editing ? (
+      {!editing ? children : (
         <Form.Item
+          rules={[{ required: true, message: `Please Input ${title}!` }]}
           name={dataIndex}
-          style={{ margin: 0 }}
-          rules={[
-            {
-              required: true,
-              message: `Please Input ${title}!`,
-            },
-          ]}
-        >
+          style={{ margin: 0 }}>
           {inputNode}
         </Form.Item>
-      ) : (
-        children
       )}
     </td>
   );
@@ -59,23 +45,21 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
 
 const App: React.FC = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState<DataType[]>(originData);
+  const [data, setData] = useState<IExpenseItem[]>(originData);
   const [editingKey, setEditingKey] = useState("");
 
-  const isEditing = (record: DataType): boolean => record.key === editingKey;
+  const isEditing = (record: IExpenseItem): boolean => record.key === editingKey;
 
-  const edit = (record: Partial<DataType> & { key: React.Key }): void => {
+  const edit = (record: Partial<IExpenseItem> & { key: React.Key }): void => {
     form.setFieldsValue({ name: "", age: "", address: "", ...record });
     setEditingKey(record.key);
   };
 
-  const cancel = (): void => {
-    setEditingKey("");
-  };
+  const cancel = (): void => setEditingKey("");
 
   const save = async (key: React.Key): Promise<void> => {
     try {
-      const row = (await form.validateFields()) as DataType;
+      const row = (await form.validateFields()) as IExpenseItem;
 
       const newData = [...data];
       const index = newData.findIndex((item) => key === item.key);
@@ -119,7 +103,7 @@ const App: React.FC = () => {
     {
       title: "operation",
       dataIndex: "operation",
-      render: (_: unknown, record: DataType): React.JSX.Element => {
+      render: (_: unknown, record: IExpenseItem): React.JSX.Element => {
         const editable = isEditing(record);
         return editable ? (
           <span>
@@ -139,13 +123,13 @@ const App: React.FC = () => {
     },
   ];
 
-  const mergedColumns: TableProps<DataType>["columns"] = columns.map((col) => {
+  const mergedColumns: TableProps<IExpenseItem>["columns"] = columns.map((col) => {
     if (!col.editable) {
       return col;
     }
     return {
       ...col,
-      onCell: (record: DataType) => ({
+      onCell: (record: IExpenseItem) => ({
         record,
         inputType: col.dataIndex === "age" ? "number" : "text",
         dataIndex: col.dataIndex,
@@ -157,14 +141,12 @@ const App: React.FC = () => {
 
   return (
     <Form form={form} component={false}>
-      <Table<DataType>
-        components={{
-          body: { cell: EditableCell },
-        }}
+      <Table<IExpenseItem>
         bordered
         dataSource={data}
         columns={mergedColumns}
         rowClassName="editable-row"
+        components={{ body: { cell: EditableCell } }}
         pagination={{ onChange: cancel }}
       />
     </Form>

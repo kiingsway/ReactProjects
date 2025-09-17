@@ -75,6 +75,7 @@ export function getRelationArrayFromProperties(pages: Page[]): string[] {
 
   const arr: string[] = [];
 
+  console.log("pages:", pages);
   for (const page of pages) {
     for (const key in page.properties) {
       const prop = page.properties[key];
@@ -85,29 +86,35 @@ export function getRelationArrayFromProperties(pages: Page[]): string[] {
   return arr;
 }
 
+/**
+ * Extrai a melhor mensagem possível de um erro desconhecido (Axios, Notion, Error padrão, etc)
+ */
 export function getErrorMessage(error: unknown): string {
   if (!error) return "Unknown error";
 
-  // Erros do Axios ou objetos similares com "response"
   if (typeof error === "object" && error !== null) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const err = error as any;
 
-    if (err.response) {
-      if (typeof err.response.data?.message === "string") return err.response.data.message;
-      if (typeof err.response.statusText === "string") return err.response.statusText;
-    }
+    // Axios comum
+    if (err.response?.data?.message) return err.response.data.message;
 
-    // Caso tenha a propriedade "message" (ex: Error, custom error, etc)
+    // Notion API ou outras APIs aninhadas
+    if (err.response?.data?.error?.message) return err.response.data.error.message;
+
+    // Possível estrutura com `error.message`
+    if (err.error?.message) return err.error.message;
+
+    // Axios fallback
+    if (typeof err.response?.statusText === "string") return err.response.statusText;
+
+    // Error padrão
     if ("message" in err && typeof err.message === "string") return err.message;
   }
 
-  // Error padrão do JS
-  if (error instanceof Error && typeof error.message === "string") {
-    return error.message;
-  }
+  if (error instanceof Error && typeof error.message === "string") return error.message;
 
-  // Outros tipos (string, number, etc)
+  // Fallback genérico
   return String(error);
 }
 
