@@ -19,18 +19,15 @@ function getFolderSize(folderPath: string): number {
     const fullPath = path.join(folderPath, entry.name);
     const stats = fs.statSync(fullPath);
 
-    if (entry.isDirectory()) {
-      total += getFolderSize(fullPath); // soma recursivamente subpastas
-    } else {
-      total += stats.size; // soma arquivos
-    }
+    if (entry.isDirectory()) total += getFolderSize(fullPath);
+    else total += stats.size;
   }
 
   return total;
 }
 
-export function getLearningPagesFolders(): FolderInfo[] {
-  const pagesPath = path.join(process.cwd(), 'pages/LearningReact');
+export function getFolders(foldersPath = 'pages'): FolderInfo[] {
+  const pagesPath = path.join(process.cwd(), foldersPath);
   const entries = fs.readdirSync(pagesPath, { withFileTypes: true });
 
   const folders = entries
@@ -52,7 +49,7 @@ export function getLearningPagesFolders(): FolderInfo[] {
         created: stats.birthtime.toISOString(),
         modified: stats.mtime.toISOString(),
         accessed: stats.atime.toISOString(),
-        size: getFolderSize(fullPath), // tamanho total incluindo arquivos internos
+        size: getFolderSize(fullPath),
       };
     });
 
