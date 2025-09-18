@@ -84,7 +84,14 @@ export default function Clock({ myClock, selectedTimezoneClock, myClockLoading, 
       month: 'long',
       day: 'numeric',
     });
+
     const time = selectedTime.toFormat('HH:mm:ss');
+
+    const abbr = ((): string => {
+      const a = selectedTimezoneClock.abbreviation;
+      const hasNumber = /\d/.test(a);
+      return hasNumber ? '' : ` (${a})`;
+    })();
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
@@ -96,7 +103,7 @@ export default function Clock({ myClock, selectedTimezoneClock, myClockLoading, 
             <Tag>Week #{selectedTimezoneClock.week_number}</Tag>
           </div>
           <div>
-            <Tag>UTC: {selectedTimezoneClock.utc_offset} ({selectedTimezoneClock.abbreviation})</Tag>
+            <Tag>UTC: {selectedTimezoneClock.utc_offset}{abbr}</Tag>
             <Tag>Timezone: {selectedTimezoneClock.timezone}</Tag>
           </div>
         </div>

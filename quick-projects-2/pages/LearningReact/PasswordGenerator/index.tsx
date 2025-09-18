@@ -103,6 +103,7 @@ const generatePassword = (settings: IOptions): string => {
   if (settings.lower) chars += lowers;
   if (settings.numbers) chars += numbers;
   if (settings.symbols) chars += symbols;
+  if (!chars) return '';
 
   let result = '';
   for (let i = 0; i < settings.length; i++) {

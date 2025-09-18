@@ -116,7 +116,5 @@ type ICurrencyRate = {
 
 const getCurrencyRate = async (currency: string): Promise<ICurrencyRate> => {
   const url = `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${currency}.min.json`;
-  const rate = (await axios.get<ICurrencyRate>(url)).data;
-  console.log('rate', rate);
-  return rate;
+  return (await axios.get<ICurrencyRate>(url)).data;
 };
