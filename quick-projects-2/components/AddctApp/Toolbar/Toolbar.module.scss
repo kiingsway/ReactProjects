@@ -1,0 +1,22 @@
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.btns {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  & hr {
+    opacity: 0.1;
+  }
+
+  &_line {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+}
